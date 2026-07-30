@@ -26,7 +26,7 @@ export class Wallet {
     @Column()
     name: string;
 
-    @Column({ type: 'varchar', length: 2 })
+    @Column({ type: 'varchar', length: 8 })
     icon: string;
 
     @Column()

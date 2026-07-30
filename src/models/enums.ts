@@ -1,4 +1,4 @@
 export enum CashFlowType {
-    Inflow = 'INFLOW',
-    Outflow = 'OUTFLOW',
+    Income = 'INCOME',
+    Expense = 'EXPENSE',
 }

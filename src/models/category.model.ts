@@ -14,7 +14,7 @@ export class Category {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column()
+    @Column({ unique: true })
     name: string;
 
     @Column('varchar', { length: 8 })
@@ -23,7 +23,7 @@ export class Category {
     @Column({
         type: 'enum',
         enum: CashFlowType,
-        default: CashFlowType.Outflow,
+        default: CashFlowType.Expense,
     })
     cashFlowType: CashFlowType;
 

@@ -42,6 +42,12 @@ $ npm run start:dev
 
 # production mode
 $ npm run start:prod
+
+# generate migration
+$ npm run migration:generate -- src/migrations/{description}
+
+# run migration
+$ npm run migration:run
 ```
 
 ## Run tests

@@ -6,6 +6,7 @@ import {
     ManyToOne,
     OneToMany,
     PrimaryGeneratedColumn,
+    Unique,
     UpdateDateColumn,
 } from 'typeorm';
 import { User } from './user.model';
@@ -13,6 +14,7 @@ import { Currency } from './currency.model';
 import { Transaction } from './transaction.model';
 
 @Entity('wallets')
+@Unique(['ownerId', 'name'])
 export class Wallet {
     @PrimaryGeneratedColumn('uuid')
     id: string;

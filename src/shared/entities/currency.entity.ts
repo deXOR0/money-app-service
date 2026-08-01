@@ -1,6 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { Wallet } from './wallet.model';
-import { Transaction } from './transaction.model';
+import { Wallet } from './wallet.entity';
+import { Transaction } from './transaction.entity';
 
 @Entity('currencies')
 export class Currency {

@@ -7,9 +7,9 @@ import {
     PrimaryGeneratedColumn,
     UpdateDateColumn,
 } from 'typeorm';
-import { Wallet } from './wallet.model';
-import { Category } from './category.model';
-import { Currency } from './currency.model';
+import { Wallet } from './wallet.entity';
+import { Category } from './category.e';
+import { Currency } from './currency.entity';
 
 @Entity('transactions')
 export class Transaction {

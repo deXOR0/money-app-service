@@ -1,4 +1,3 @@
-import { CashFlowType } from 'src/models/enums';
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 const categories = [

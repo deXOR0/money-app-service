@@ -6,7 +6,7 @@ import {
     PrimaryGeneratedColumn,
     UpdateDateColumn,
 } from 'typeorm';
-import { Wallet } from './wallet.model';
+import { Wallet } from './wallet.entity';
 
 @Entity('users')
 export class User {

@@ -10,8 +10,8 @@ import {
     UpdateDateColumn,
 } from 'typeorm';
 import { User } from './user.model';
-import { Currency } from './currency.model';
-import { Transaction } from './transaction.model';
+import { Currency } from './currency.entity';
+import { Transaction } from './transaction.entity';
 
 @Entity('wallets')
 @Unique(['ownerId', 'name'])

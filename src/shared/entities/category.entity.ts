@@ -7,7 +7,7 @@ import {
     PrimaryGeneratedColumn,
 } from 'typeorm';
 import { CashFlowType } from './enums';
-import { Transaction } from './transaction.model';
+import { Transaction } from './transaction.entity';
 
 @Entity('categories')
 export class Category {

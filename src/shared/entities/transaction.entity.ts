@@ -8,7 +8,7 @@ import {
     UpdateDateColumn,
 } from 'typeorm';
 import { Wallet } from './wallet.entity';
-import { Category } from './category.e';
+import { Category } from './category.entity';
 import { Currency } from './currency.entity';
 
 @Entity('transactions')

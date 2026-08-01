@@ -9,7 +9,7 @@ import {
     Unique,
     UpdateDateColumn,
 } from 'typeorm';
-import { User } from './user.model';
+import { User } from './user.entity';
 import { Currency } from './currency.entity';
 import { Transaction } from './transaction.entity';
 

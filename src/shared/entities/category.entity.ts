@@ -6,7 +6,7 @@ import {
     OneToMany,
     PrimaryGeneratedColumn,
 } from 'typeorm';
-import { CashFlowType } from './enums';
+import { CashFlowType } from '../enums';
 import { Transaction } from './transaction.entity';
 
 @Entity('categories')

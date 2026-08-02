@@ -1,5 +1,7 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, UseGuards } from '@nestjs/common';
 import { AppService } from './app.service';
+import { AuthorizationGuard } from './authorization/guards/authorization.guard';
+import { DataResponse } from './shared/dto/base.dto';
 
 @Controller()
 export class AppController {
@@ -8,5 +10,11 @@ export class AppController {
     @Get()
     getHello(): string {
         return this.appService.getHello();
+    }
+
+    @Get('/private')
+    @UseGuards(AuthorizationGuard)
+    getPrivate(): DataResponse<string> {
+        return this.appService.getPrivate();
     }
 }

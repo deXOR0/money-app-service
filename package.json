@@ -28,6 +28,8 @@
         "@nestjs/platform-express": "^11.0.1",
         "@nestjs/typeorm": "^11.0.3",
         "dotenv": "^17.4.2",
+        "express-jwt": "^8.5.1",
+        "jwks-rsa": "^4.1.0",
         "pg": "^8.22.0",
         "reflect-metadata": "^0.2.2",
         "rxjs": "^7.8.1",

@@ -6,14 +6,14 @@ import {
     PrimaryGeneratedColumn,
     UpdateDateColumn,
 } from 'typeorm';
-import { Wallet } from './wallet.model';
+import { Wallet } from './wallet.entity';
 
 @Entity('users')
 export class User {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column()
+    @Column({ unique: true })
     auth0Id: string;
 
     @Column()

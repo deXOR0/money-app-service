@@ -6,13 +6,15 @@ import {
     ManyToOne,
     OneToMany,
     PrimaryGeneratedColumn,
+    Unique,
     UpdateDateColumn,
 } from 'typeorm';
-import { User } from './user.model';
-import { Currency } from './currency.model';
-import { Transaction } from './transaction.model';
+import { User } from './user.entity';
+import { Currency } from './currency.entity';
+import { Transaction } from './transaction.entity';
 
 @Entity('wallets')
+@Unique(['ownerId', 'name'])
 export class Wallet {
     @PrimaryGeneratedColumn('uuid')
     id: string;
@@ -26,7 +28,7 @@ export class Wallet {
     @Column()
     name: string;
 
-    @Column({ type: 'varchar', length: 2 })
+    @Column({ type: 'varchar', length: 8 })
     icon: string;
 
     @Column()

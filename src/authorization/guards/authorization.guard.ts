@@ -16,11 +16,6 @@ export class AuthorizationGuard implements CanActivate {
         const req = context.getArgByIndex(0);
         const res = context.getArgByIndex(1);
 
-        console.log(
-            'process.env.AUTH0_DOMAIN}.well-known/jwks.json',
-            `${process.env.AUTH0_DOMAIN}.well-known/jwks.json`,
-        );
-
         const checkJwt = promisify(
             expressjwt({
                 secret: expressJwtSecret({

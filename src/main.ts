@@ -4,6 +4,7 @@ import { UnauthorizedExceptionFilter } from './shared/filters/global-exception.f
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
+    app.setGlobalPrefix('api');
     app.useGlobalFilters(new UnauthorizedExceptionFilter());
     await app.listen(process.env.PORT ?? 3000);
 }

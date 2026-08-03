@@ -16,7 +16,7 @@ export class User {
     @Column({ unique: true })
     auth0Id: string;
 
-    @Column()
+    @Column({ nullable: true })
     nickname: string;
 
     @CreateDateColumn()

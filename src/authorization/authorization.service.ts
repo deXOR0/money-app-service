@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { jwtDecode, JwtPayload } from 'jwt-decode';
 import { User } from 'src/shared/entities/user.entity';
 import { Repository } from 'typeorm';
+import { SetNicknameDto } from './dto/authorization.dto';
 
 @Injectable()
 export class AuthorizationService {
@@ -31,5 +32,22 @@ export class AuthorizationService {
         });
 
         return await this.userRepository.save(newUser);
+    }
+
+    async setNickname(
+        token: string,
+        setNicknameDto: SetNicknameDto,
+    ): Promise<User | null> {
+        const { sub: auth0Id } = this.decodeToken(token);
+
+        const user = await this.userRepository.findOneBy({ auth0Id });
+
+        if (user) {
+            user.nickname = setNicknameDto.nickname;
+
+            return await this.userRepository.save(user);
+        }
+
+        return null;
     }
 }

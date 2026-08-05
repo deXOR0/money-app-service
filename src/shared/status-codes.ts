@@ -5,3 +5,8 @@ export enum StatusCode {
     NewUserCreated = 'NEW_USER_CREATED',
     ExistingUserFound = 'EXISTING_USER_FOUND',
 }
+
+export enum StatusMessage {
+    Success = 'Success',
+    GeneralError = 'An error occured',
+}

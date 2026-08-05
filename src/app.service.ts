@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DataResponse } from './shared/dto/base.dto';
-import { StatusCode } from './shared/status-codes';
+import { StatusCode, StatusMessage } from './shared/status-codes';
 
 @Injectable()
 export class AppService {
@@ -8,13 +8,15 @@ export class AppService {
         return 'Hello World!';
     }
 
-    getPrivate(): DataResponse<string> {
+    getPrivate(param: {
+        isValue: boolean;
+    }): DataResponse<{ isValue: boolean }> {
         return {
             status: {
                 code: StatusCode.Success,
-                message: 'success',
+                message: StatusMessage.Success,
             },
-            data: 'Welcome to private endpoint!',
+            data: param,
         };
     }
 }

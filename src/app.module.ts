@@ -9,7 +9,6 @@ import { UserModule } from './user/user.module';
 import { CurrencyModule } from './currency/currency.module';
 import { CategoryModule } from './category/category.module';
 import { TransactionModule } from './transaction/transaction.module';
-import { LoggerMiddleware } from './shared/middlewares/logger.middleware';
 
 @Module({
     imports: [
@@ -24,8 +23,4 @@ import { LoggerMiddleware } from './shared/middlewares/logger.middleware';
     controllers: [AppController],
     providers: [AppService],
 })
-export class AppModule implements NestModule {
-    configure(consumer: MiddlewareConsumer) {
-        consumer.apply(LoggerMiddleware).forRoutes('*');
-    }
-}
+export class AppModule {}

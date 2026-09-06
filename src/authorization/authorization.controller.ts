@@ -13,7 +13,7 @@ import { AuthorizationGuard } from './guards/authorization.guard';
 import { BaseResponse, DataResponse, Status } from 'src/shared/dto/base.dto';
 import { User } from 'src/shared/entities/user.entity';
 import { StatusCode, StatusMessage } from 'src/shared/status-codes';
-import { SetNicknameDto, UserIdDto } from './dto/authorization.dto';
+import { SetNicknameDto, UserExchangeDto } from './dto/authorization.dto';
 
 @Controller('auth')
 export class AuthorizationController {
@@ -23,29 +23,11 @@ export class AuthorizationController {
     async exchangeId(
         @Headers('api-key') apiKey: string,
         @Param('auth0Id') auth0Id: string,
-    ): Promise<DataResponse<UserIdDto>> {
-        const userId = await this.authorizationService.exchangeUserId(
+    ): Promise<DataResponse<UserExchangeDto>> {
+        const user = await this.authorizationService.exchangeUserId(
             apiKey,
             auth0Id,
         );
-
-        return {
-            status: {
-                code: userId ? StatusCode.Success : StatusCode.UserNotFound,
-                message: userId ? StatusMessage.Success : 'User not found',
-            },
-            data: {
-                userId: userId,
-            },
-        };
-    }
-
-    @Post('login')
-    @UseGuards(AuthorizationGuard)
-    async login(
-        @Headers('authorization') token: string,
-    ): Promise<DataResponse<User>> {
-        const user = await this.authorizationService.findOrCreateUser(token);
 
         let status: Status = {
             code: StatusCode.NewUserCreated,
@@ -61,7 +43,10 @@ export class AuthorizationController {
 
         return {
             status,
-            data: user,
+            data: {
+                userId: user.id,
+                nickname: user.nickname,
+            },
         };
     }
 

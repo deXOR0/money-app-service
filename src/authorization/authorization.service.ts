@@ -6,6 +6,8 @@ import { Repository } from 'typeorm';
 import { SetNicknameDto } from './dto/authorization.dto';
 import { decodeToken } from 'src/shared/utils';
 
+require('dotenv').config();
+
 @Injectable()
 export class AuthorizationService {
     constructor(
@@ -13,12 +15,29 @@ export class AuthorizationService {
         private userRepository: Repository<User>,
     ) {}
 
+    async findUser(auth0Id: string): Promise<User | null> {
+        return await this.userRepository.findOneBy({
+            auth0Id,
+        });
+    }
+
+    async exchangeUserId(
+        apiKey: string,
+        auth0Id: string,
+    ): Promise<string | null> {
+        if (apiKey === process.env.API_KEY) {
+            const user = await this.findUser(auth0Id);
+            if (user) {
+                return user.id;
+            }
+        }
+        return null;
+    }
+
     async findOrCreateUser(token: string): Promise<User> {
         const { sub: auth0Id } = decodeToken(token);
 
-        const existingUser = await this.userRepository.findOneBy({
-            auth0Id,
-        });
+        const existingUser = await this.findUser(auth0Id || '');
 
         if (existingUser) {
             return existingUser;

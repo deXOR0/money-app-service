@@ -1,3 +1,7 @@
 export class SetNicknameDto {
-    nickname;
+    nickname: string;
+}
+
+export class UserIdDto {
+    userId: string | null;
 }

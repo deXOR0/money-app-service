@@ -4,6 +4,7 @@ export enum StatusCode {
     UnauthorizedError = 'ERROR_UNAUTHORIZED',
     NewUserCreated = 'NEW_USER_CREATED',
     ExistingUserFound = 'EXISTING_USER_FOUND',
+    UserNotFound = 'USER_NOT_FOUND',
 }
 
 export enum StatusMessage {

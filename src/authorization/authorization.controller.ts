@@ -1,7 +1,9 @@
 import {
     Body,
     Controller,
+    Get,
     Headers,
+    Param,
     Patch,
     Post,
     UseGuards,
@@ -11,14 +13,35 @@ import { AuthorizationGuard } from './guards/authorization.guard';
 import { BaseResponse, DataResponse, Status } from 'src/shared/dto/base.dto';
 import { User } from 'src/shared/entities/user.entity';
 import { StatusCode, StatusMessage } from 'src/shared/status-codes';
-import { SetNicknameDto } from './dto/authorization.dto';
+import { SetNicknameDto, UserIdDto } from './dto/authorization.dto';
 
 @Controller('auth')
-@UseGuards(AuthorizationGuard)
 export class AuthorizationController {
     constructor(private authorizationService: AuthorizationService) {}
 
+    @Get('id-exchange/:auth0Id')
+    async exchangeId(
+        @Headers('api-key') apiKey: string,
+        @Param('auth0Id') auth0Id: string,
+    ): Promise<DataResponse<UserIdDto>> {
+        const userId = await this.authorizationService.exchangeUserId(
+            apiKey,
+            auth0Id,
+        );
+
+        return {
+            status: {
+                code: userId ? StatusCode.Success : StatusCode.UserNotFound,
+                message: userId ? StatusMessage.Success : 'User not found',
+            },
+            data: {
+                userId: userId,
+            },
+        };
+    }
+
     @Post('login')
+    @UseGuards(AuthorizationGuard)
     async login(
         @Headers('authorization') token: string,
     ): Promise<DataResponse<User>> {
@@ -43,6 +66,7 @@ export class AuthorizationController {
     }
 
     @Patch('nickname')
+    @UseGuards(AuthorizationGuard)
     async setNickname(
         @Headers('authorization') token: string,
         @Body() setNicknameDto: SetNicknameDto,

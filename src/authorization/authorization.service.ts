@@ -5,6 +5,7 @@ import { User } from 'src/shared/entities/user.entity';
 import { Repository } from 'typeorm';
 import { SetNicknameDto } from './dto/authorization.dto';
 import { decodeToken } from 'src/shared/utils';
+import { UnauthorizedAPIKeyException } from 'src/shared/exceptions';
 
 require('dotenv').config();
 
@@ -21,33 +22,21 @@ export class AuthorizationService {
         });
     }
 
-    async exchangeUserId(
-        apiKey: string,
-        auth0Id: string,
-    ): Promise<string | null> {
+    async exchangeUserId(apiKey: string, auth0Id: string): Promise<User> {
         if (apiKey === process.env.API_KEY) {
-            const user = await this.findUser(auth0Id);
-            if (user) {
-                return user.id;
+            const existingUser = await this.findUser(auth0Id);
+
+            if (existingUser) {
+                return existingUser;
             }
+
+            const newUser = this.userRepository.create({
+                auth0Id,
+            });
+
+            return await this.userRepository.save(newUser);
         }
-        return null;
-    }
-
-    async findOrCreateUser(token: string): Promise<User> {
-        const { sub: auth0Id } = decodeToken(token);
-
-        const existingUser = await this.findUser(auth0Id || '');
-
-        if (existingUser) {
-            return existingUser;
-        }
-
-        const newUser = this.userRepository.create({
-            auth0Id,
-        });
-
-        return await this.userRepository.save(newUser);
+        throw new UnauthorizedAPIKeyException();
     }
 
     async setNickname(

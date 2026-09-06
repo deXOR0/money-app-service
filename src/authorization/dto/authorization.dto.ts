@@ -2,6 +2,7 @@ export class SetNicknameDto {
     nickname: string;
 }
 
-export class UserIdDto {
-    userId: string | null;
+export class UserExchangeDto {
+    userId: string;
+    nickname: string;
 }

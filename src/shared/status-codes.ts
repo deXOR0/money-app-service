@@ -2,6 +2,7 @@ export enum StatusCode {
     Success = 'SUCCESS',
     GeneralError = 'ERROR',
     UnauthorizedError = 'ERROR_UNAUTHORIZED',
+    UnauthorizedAPIKeyError = 'ERROR_UNAUTHORIZED_API_KEY',
     NewUserCreated = 'NEW_USER_CREATED',
     ExistingUserFound = 'EXISTING_USER_FOUND',
     UserNotFound = 'USER_NOT_FOUND',
